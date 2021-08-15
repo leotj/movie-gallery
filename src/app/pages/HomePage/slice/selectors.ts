@@ -17,5 +17,5 @@ export const selectError = createSelector(
 
 export const selectMovies = createSelector(
   [selectDomain],
-  homePageState => homePageState.movies,
+  homePageState => homePageState.filteredMovies,
 );

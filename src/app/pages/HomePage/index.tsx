@@ -7,6 +7,7 @@ import Grid from '@material-ui/core/Grid';
 import ImageList from '@material-ui/core/ImageList';
 import ImageListItem from '@material-ui/core/ImageListItem';
 import MovieListItemBar from './components/MovieListItemBar';
+import TopBar from './components/TopBar';
 import { selectLoading, selectMovies } from './slice/selectors';
 import { useHomePageSlice } from './slice';
 import { Movie } from '../../../types/movie';
@@ -34,6 +35,12 @@ export function HomePage() {
     history.push(`/details/${id}`);
   };
 
+  const handleSearchInputChange = (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    dispatch(actions.searchMovies(event.target.value));
+  };
+
   return (
     <>
       <Helmet>
@@ -41,6 +48,7 @@ export function HomePage() {
         <meta name="description" content="Movie Gallery" />
       </Helmet>
       <Grid container justifyContent="center">
+        <TopBar onSearchInputChange={handleSearchInputChange} />
         {isLoading && <CircularProgress />}
         <ImageList>
           {movies.map((movie: Movie) => (

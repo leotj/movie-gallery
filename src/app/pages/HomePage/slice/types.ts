@@ -4,6 +4,7 @@ import { Movie } from 'types/movie';
 export interface HomePageState {
   loading: boolean;
   movies: Movie[];
+  filteredMovies: Movie[];
   error?: string | null;
 }
 
