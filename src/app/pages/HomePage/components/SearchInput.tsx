@@ -1,7 +1,9 @@
 import React from 'react';
 import { styled, alpha } from '@material-ui/core/styles';
-import InputBase from '@material-ui/core/InputBase';
+import Autocomplete from '@material-ui/core/Autocomplete';
+import TextField from '@material-ui/core/TextField';
 import SearchIcon from '@material-ui/icons/Search';
+import { AutocompleteInputChangeReason } from '@material-ui/unstyled/AutocompleteUnstyled/useAutocomplete';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -28,37 +30,32 @@ const SearchIconWrapper = styled('div')(({ theme }) => ({
   justifyContent: 'center',
 }));
 
-const StyledInputBase = styled(InputBase)(({ theme }) => ({
-  color: 'inherit',
-  '& .MuiInputBase-input': {
-    padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
-    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-    transition: theme.transitions.create('width'),
-    width: '100%',
-    [theme.breakpoints.up('sm')]: {
-      width: '12ch',
-      '&:focus': {
-        width: '20ch',
-      },
-    },
-  },
-}));
-
-interface Props {
-  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+export interface Props {
+  options: string[];
+  onInputChange?: (
+    event: React.SyntheticEvent,
+    value: string,
+    reason: AutocompleteInputChangeReason,
+  ) => void;
 }
 
-export default function SearchInput(props: Props) {
+export default function SearchInput(props) {
   return (
     <Search>
       <SearchIconWrapper>
         <SearchIcon />
       </SearchIconWrapper>
-      <StyledInputBase
-        placeholder="Search…"
-        inputProps={{ 'aria-label': 'search' }}
-        onChange={props.onChange}
+      <Autocomplete
+        disablePortal
+        options={props.options}
+        renderInput={params => <TextField {...params} />}
+        onInputChange={props.onInputChange}
+        sx={{
+          '& input': {
+            paddingLeft: theme => `calc(1em + ${theme.spacing(4)}) !important`,
+            color: 'white',
+          },
+        }}
       />
     </Search>
   );

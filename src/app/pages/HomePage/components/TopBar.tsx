@@ -4,10 +4,10 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import LocalMoviesIcon from '@material-ui/icons/LocalMovies';
 import DateFilter, { Props as DateFilterProps } from './DateFilter';
-import SearchInput from './SearchInput';
+import SearchInput, { Props as SearchInputProps } from './SearchInput';
 
 interface Props {
-  onSearchInputChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  searchInput: SearchInputProps;
   dateFilter: DateFilterProps;
 }
 
@@ -26,7 +26,7 @@ export default function TopBar(props: Props) {
           Movie Gallery
         </Typography>
         <Grid item sx={{ flexGrow: 1 }} pl={2} pr={3}>
-          <SearchInput onChange={props.onSearchInputChange} />
+          <SearchInput {...props.searchInput} />
         </Grid>
         <DateFilter {...props.dateFilter} />
       </Grid>

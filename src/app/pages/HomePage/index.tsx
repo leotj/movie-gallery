@@ -6,6 +6,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import Grid from '@material-ui/core/Grid';
 import ImageList from '@material-ui/core/ImageList';
 import ImageListItem from '@material-ui/core/ImageListItem';
+import { AutocompleteInputChangeReason } from '@material-ui/unstyled/AutocompleteUnstyled/useAutocomplete';
 import MovieListItemBar from './components/MovieListItemBar';
 import TopBar from './components/TopBar';
 import {
@@ -40,10 +41,16 @@ export function HomePage() {
     history.push(`/details/${id}`);
   };
 
+  const searchInputOptions = Array.from(
+    new Set(movies.map(movie => movie.title)),
+  );
+
   const handleSearchInputChange = (
-    event: React.ChangeEvent<HTMLInputElement>,
+    event: React.SyntheticEvent,
+    value: string,
+    reason: AutocompleteInputChangeReason,
   ) => {
-    dispatch(actions.setSearchInput(event.target.value));
+    dispatch(actions.setSearchInput(value));
   };
 
   const handleDateFilterChange = (value: Date) => {
@@ -58,7 +65,10 @@ export function HomePage() {
       </Helmet>
       <Grid container justifyContent="center">
         <TopBar
-          onSearchInputChange={handleSearchInputChange}
+          searchInput={{
+            options: searchInputOptions,
+            onInputChange: handleSearchInputChange,
+          }}
           dateFilter={{
             value: dateFilterValue,
             onChange: handleDateFilterChange,
