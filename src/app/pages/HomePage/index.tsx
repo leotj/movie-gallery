@@ -8,7 +8,11 @@ import ImageList from '@material-ui/core/ImageList';
 import ImageListItem from '@material-ui/core/ImageListItem';
 import MovieListItemBar from './components/MovieListItemBar';
 import TopBar from './components/TopBar';
-import { selectLoading, selectMovies } from './slice/selectors';
+import {
+  selectLoading,
+  selectMovies,
+  selectDateFilter,
+} from './slice/selectors';
 import { useHomePageSlice } from './slice';
 import { Movie } from '../../../types/movie';
 
@@ -17,6 +21,7 @@ export function HomePage() {
 
   const movies = useSelector(selectMovies);
   const isLoading = useSelector(selectLoading);
+  const dateFilterValue = useSelector(selectDateFilter);
 
   const dispatch = useDispatch();
 
@@ -38,7 +43,11 @@ export function HomePage() {
   const handleSearchInputChange = (
     event: React.ChangeEvent<HTMLInputElement>,
   ) => {
-    dispatch(actions.searchMovies(event.target.value));
+    dispatch(actions.setSearchInput(event.target.value));
+  };
+
+  const handleDateFilterChange = (value: Date) => {
+    dispatch(actions.setDateFilter(value));
   };
 
   return (
@@ -48,7 +57,13 @@ export function HomePage() {
         <meta name="description" content="Movie Gallery" />
       </Helmet>
       <Grid container justifyContent="center">
-        <TopBar onSearchInputChange={handleSearchInputChange} />
+        <TopBar
+          onSearchInputChange={handleSearchInputChange}
+          dateFilter={{
+            value: dateFilterValue,
+            onChange: handleDateFilterChange,
+          }}
+        />
         {isLoading && <CircularProgress />}
         <ImageList>
           {movies.map((movie: Movie) => (

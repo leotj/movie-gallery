@@ -19,3 +19,8 @@ export const selectMovies = createSelector(
   [selectDomain],
   homePageState => homePageState.filteredMovies,
 );
+
+export const selectDateFilter = createSelector(
+  [selectDomain],
+  homePageState => homePageState.dateFilter,
+);
