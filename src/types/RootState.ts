@@ -1,4 +1,5 @@
 import { HomePageState } from 'app/pages/HomePage/slice/types';
+import { MovieDetailsPageState } from 'app/pages/MovieDetailsPage/slice/types';
 // [IMPORT NEW CONTAINERSTATE ABOVE] < Needed for generating containers seamlessly
 
 /* 
@@ -8,4 +9,5 @@ import { HomePageState } from 'app/pages/HomePage/slice/types';
 export interface RootState {
   // [INSERT NEW REDUCER KEY ABOVE] < Needed for generating containers seamlessly
   homePage: HomePageState;
+  movieDetailsPage: MovieDetailsPageState;
 }

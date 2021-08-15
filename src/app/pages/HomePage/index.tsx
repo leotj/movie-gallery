@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useSelector, useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Grid from '@material-ui/core/Grid';
 import ImageList from '@material-ui/core/ImageList';
@@ -27,6 +28,12 @@ export function HomePage() {
     dispatch(actions.loadMovies());
   });
 
+  let history = useHistory();
+
+  const handleItemClick = (id: string) => {
+    history.push(`/details/${id}`);
+  };
+
   return (
     <>
       <Helmet>
@@ -37,7 +44,10 @@ export function HomePage() {
         {isLoading && <CircularProgress />}
         <ImageList>
           {movies.map((movie: Movie) => (
-            <ImageListItem key={`${movie.id}${movie.title}`}>
+            <ImageListItem
+              key={`${movie.id}${movie.title}`}
+              onClick={() => handleItemClick(movie.id)}
+            >
               <img
                 src={movie.image}
                 srcSet={movie.image}
