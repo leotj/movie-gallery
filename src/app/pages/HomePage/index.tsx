@@ -7,6 +7,8 @@ import Grid from '@material-ui/core/Grid';
 import ImageList from '@material-ui/core/ImageList';
 import ImageListItem from '@material-ui/core/ImageListItem';
 import { AutocompleteInputChangeReason } from '@material-ui/unstyled/AutocompleteUnstyled/useAutocomplete';
+import { Movie } from 'types/movie';
+import { convertURLToHTTPS } from 'utils/request';
 import MovieListItemBar from './components/MovieListItemBar';
 import TopBar from './components/TopBar';
 import {
@@ -15,7 +17,6 @@ import {
   selectDateFilter,
 } from './slice/selectors';
 import { useHomePageSlice } from './slice';
-import { Movie } from '../../../types/movie';
 
 export function HomePage() {
   const { actions } = useHomePageSlice();
@@ -82,8 +83,8 @@ export function HomePage() {
               onClick={() => handleItemClick(movie.id)}
             >
               <img
-                src={movie.image}
-                srcSet={movie.image}
+                src={convertURLToHTTPS(movie.image)}
+                srcSet={convertURLToHTTPS(movie.image)}
                 alt={movie.title}
                 loading="lazy"
               />

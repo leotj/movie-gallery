@@ -43,6 +43,7 @@
     "lint-staged": "10.3.0",
     "lodash.capitalize": "4.2.1",
     "lodash.includes": "4.3.0",
+    "lodash.replace": "4.1.4",
     "node-plop": "0.26.2",
     "numeral": "2.0.6",
     "plop": "2.7.4",

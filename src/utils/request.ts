@@ -1,3 +1,5 @@
+import replace from 'lodash.replace';
+
 export class ResponseError extends Error {
   public response: Response;
 
@@ -6,6 +8,11 @@ export class ResponseError extends Error {
     this.response = response;
   }
 }
+
+export function convertURLToHTTPS(url?: string): string {
+  return replace(url, 'http://', 'https://');
+}
+
 /**
  * Parses the JSON returned by a network request
  *

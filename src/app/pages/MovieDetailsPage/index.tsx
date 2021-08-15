@@ -13,6 +13,7 @@ import ThumbUpIcon from '@material-ui/icons/ThumbUp';
 import { format } from 'date-fns';
 import capitalize from 'lodash.capitalize';
 import numeral from 'numeral';
+import { convertURLToHTTPS } from 'utils/request';
 import {
   selectImage,
   selectTitle,
@@ -53,7 +54,12 @@ export function MovieDetailPage() {
       <CssBaseline />
       <Container maxWidth="lg">
         <Box display="flex" justifyContent="center" flexDirection="column">
-          <img src={image} srcSet={image} alt={title} loading="lazy" />
+          <img
+            src={convertURLToHTTPS(image)}
+            srcSet={convertURLToHTTPS(image)}
+            alt={title}
+            loading="lazy"
+          />
           <Grid
             container
             display="flex"
